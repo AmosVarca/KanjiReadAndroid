@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivityProgress">
+
+    <TextView
+            android:layout_width="371dp"
+            android:layout_height="47dp" android:id="@+id/textViewProgressi"
+            android:text="Ecco i tuoi progressi"
+            android:textSize="34sp" tools:visibility="visible"
+            android:textAlignment="center" android:textColor="#000000"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="528dp" android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"/>
+    <ImageView
+            android:layout_width="51dp"
+            android:layout_height="60dp" app:srcCompat="@android:drawable/btn_star_big_on"
+            android:id="@+id/imageView2" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="96dp" app:layout_constraintBottom_toTopOf="@+id/textViewProgressi"
+            android:layout_marginEnd="180dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="180dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

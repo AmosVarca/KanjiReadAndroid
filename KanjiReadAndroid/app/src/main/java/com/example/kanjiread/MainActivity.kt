@@ -11,12 +11,39 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.kanjiread.databinding.ActivityMainBinding
-import com.example.kanjiread.kanjiGeneratorGradeOne
+import com.example.kanjiread.KanjiGeneratorGradeOne
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+
+    /** Variabili per la generazione random dei Kanji */
+    private val kanjiView: TextView by lazy {findViewById(R.id.kanjiView)}
+    private val kanjiGenerator = KanjiGeneratorGradeOne()
+
+    // Dichiarazione delle variabili come proprietà della classe
+    private lateinit var kunReading: String
+    private lateinit var onReading: String
+   /**-------------------------------------------------*/
+
+   /** Funzione di generazione */
+   private fun generateRandomKanji() {
+       // Chiamata al metodo per generare casualmente un kanji
+       var randomKanji = kanjiGenerator.generateRandomKanji()
+       // Utilizzo delle letture Kun e On
+       kunReading = randomKanji.kunReading
+       onReading = randomKanji.onReading
+
+       //println("Kanji: ${randomKanji.character}")
+       //println("Lettura Kun: ${randomKanji.kunReading}")
+       //println("Lettura On: ${randomKanji.onReading}")
+
+       // Mostra la lettera generata nel TextView
+       kanjiView.text = randomKanji.character.toString()
+   }
+    /**-------------------------------------------------*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,32 +58,25 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        val button      = findViewById<Button>(R.id.controlla)
-        val editTextKun = findViewById<EditText>(R.id.editTextKunReading)
-        val editTextOn  = findViewById<EditText>(R.id.editTextOnReading)
+        val buttonControlla  = findViewById<Button>(R.id.controlla)
+        val buttonNonRicordo   = findViewById<Button>(R.id.nonRicordo)
+        val editTextKun      = findViewById<EditText>(R.id.editTextKunReading)
+        val editTextOn       = findViewById<EditText>(R.id.editTextOnReading)
 
 
-        val builder = AlertDialog.Builder(this)
+        val builderOk    = AlertDialog.Builder(this)
+        val builderNotOk = AlertDialog.Builder(this)
+        val builderEmpty = AlertDialog.Builder(this)
 
-        // Ottieni il riferimento al TextView nel layout utilizzando l'ID
-        val kanjiView: TextView = findViewById(R.id.kanjiView)
-        // Creazione di un'istanza della classe kanjiGeneratorGradeOne
-        val kanjiGenerator = kanjiGeneratorGradeOne()
-        // Chiamata al metodo per generare casualmente un kanji
-        val randomKanji = kanjiGenerator.generateRandomKanji()
-        // Esempio di utilizzo delle letture Kun e On
-        val kunReading = randomKanji.kunReading
-        val onReading = randomKanji.onReading
+        builderNotOk.setPositiveButton("Sbagliato,riprova") { dialog, _ ->
+            editTextKun.setText("")
+            editTextOn.setText("")
+            dialog.dismiss()}
 
-        println("Kanji: ${randomKanji.character}")
-        println("Lettura Kun: ${randomKanji.kunReading}")
-        println("Lettura On: ${randomKanji.onReading}")
-
-        // Mostra la lettera generata nel TextView
-        kanjiView.text = randomKanji.character.toString()
+        generateRandomKanji()
 
         // Aggiungi un listener per gestire il clic sul pulsante
-        button.setOnClickListener {
+        buttonControlla.setOnClickListener {
             // Ottieni il testo inserito dall'utente nell'EditText
             val kunInserito = editTextKun.text.toString()
             val onInserito = editTextOn.text.toString()
@@ -64,30 +84,36 @@ class MainActivity : AppCompatActivity() {
             // Esegui azioni basate sul testo inserito
             if (kunInserito.isNotBlank() || onInserito.isNotBlank()) {
                 // Se il testo non è vuoto, mostra un Toast con il testo inserito
-                if (kunInserito == randomKanji.kunReading && onInserito == randomKanji.onReading) {
-                    builder.setMessage("Testo inserito: $kunInserito e $onInserito sono corretti")
-                    builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss()}
-                    val dialog = builder.create()
+                if (kunInserito == kunReading && onInserito == onReading) {
+                    builderOk.setMessage("Testo inserito: $kunInserito e $onInserito sono corretti")
+                    builderOk.setPositiveButton("OK,prossimo Kanji") { dialog, _ ->
+                        generateRandomKanji()
+                        editTextKun.setText("")
+                        editTextOn.setText("")
+                        dialog.dismiss()}
+                    val dialog = builderOk.create()
                     dialog.show()
                 } else {
-                    if (kunInserito != randomKanji.kunReading && onInserito != randomKanji.onReading) {
-                        builder.setMessage(
+                    if (kunInserito != kunReading && onInserito != onReading) {
+
+                        builderNotOk.setMessage(
                             "Testo inserito: $kunInserito e $onInserito sono errati"
-                        )
-                        val dialog1 = builder.create()
-                        dialog1.show()
-                    } else if (kunInserito != randomKanji.kunReading){
-                        Toast.makeText(this, "Il KUN inserito $kunInserito è errato", Toast.LENGTH_SHORT)
-                            .show()
+                        ).create().show()
+                    } else if (kunInserito != kunReading){
+                        builderNotOk.setMessage("Il KUN inserito $kunInserito è errato").create().show()
                     } else {
-                        Toast.makeText(this, "Il ON inserito $onInserito è errato", Toast.LENGTH_SHORT)
-                            .show()
+                        builderNotOk.setMessage("Il ON inserito $onInserito è errato").create().show()
                     }
                 }
             } else {
                 // Se il testo è vuoto, mostra un Toast con un messaggio informativo
-                Toast.makeText(this, "Inserisci del testo prima di premere il pulsante", Toast.LENGTH_SHORT).show()
+                builderEmpty.setMessage("Compila entrambe le opzioni prima di premere il pulsante").create().show()
             }
+        }
+        buttonNonRicordo.setOnClickListener{
+            generateRandomKanji()
+            editTextKun.setText("")
+            editTextOn.setText("")
         }
     }
 }
