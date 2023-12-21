@@ -8,7 +8,11 @@
         <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/activity_main_progress.xml" value="0.25" />
         <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/fragment_first.xml" value="0.265625" />
+        <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/fragment_item.xml" value="0.22871376811594202" />
+        <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/fragment_item_list.xml" value="0.22871376811594202" />
+        <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/fragment_progress_grade_one_list.xml" value="0.26811594202898553" />
         <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/fragment_second.xml" value="0.265625" />
+        <entry key="..\:/Users/Public/Documents/KanjiReadAndroid/app/src/main/res/layout/fragment_tab_frag_prog_g1.xml" value="0.335" />
       </map>
     </option>
   </component>

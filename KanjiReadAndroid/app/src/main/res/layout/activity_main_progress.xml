@@ -24,5 +24,39 @@
             android:layout_marginTop="96dp" app:layout_constraintBottom_toTopOf="@+id/textViewProgressi"
             android:layout_marginEnd="180dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="180dp"/>
+    <com.google.android.material.tabs.TabLayout
+            android:layout_width="390dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="69dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProgressi" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="10dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="420dp" android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/tabLayout123">
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grado 1" android:id="@+id/tabGrado1"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grado 2" android:id="@+id/tabGrado2"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grado 3" android:id="@+id/tabGrado3"/>
+    </com.google.android.material.tabs.TabLayout>
+    <FrameLayout
+            android:layout_width="362dp"
+            android:layout_height="291dp"
+            android:id="@+id/listaProgressiKanjiGrado1"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout123" app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+    >
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

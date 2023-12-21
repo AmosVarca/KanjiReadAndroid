@@ -2,14 +2,91 @@
 <resources>
     <string-array name="array_grado_1">
         <item>一</item>
-        <item>二</item>
-        <item>三</item>
-        <item>四</item>
-        <item>五</item>
-        <item>六</item>
-        <item>七</item>
-        <item>八</item>
+        <item>右</item>
+        <item>雨</item>
+        <item>円</item>
+        <item>王</item>
+        <item>音</item>
+        <item>下</item>
+        <item>火</item>
+        <item>花</item>
+        <item>貝</item>
+        <item>学</item>
+        <item>気</item>
         <item>九</item>
+        <item>休</item>
+        <item>玉</item>
+        <item>金</item>
+        <item>空</item>
+        <item>月</item>
+        <item>犬</item>
+        <item>見</item>
+        <item>五</item>
+        <item>口</item>
+        <item>校</item>
+        <item>左</item>
+        <item>三</item>
+        <item>山</item>
+        <item>子</item>
+        <item>四</item>
+        <item>糸</item>
+        <item>字</item>
+        <item>耳</item>
+        <item>七</item>
+        <item>車</item>
+        <item>手</item>
         <item>十</item>
+        <item>出</item>
+        <item>女</item>
+        <item>小</item>
+        <item>上</item>
+        <item>森</item>
+        <item>人</item>
+        <item>水</item>
+        <item>正</item>
+        <item>生</item>
+        <item>青</item>
+        <item>夕</item>
+        <item>石</item>
+        <item>赤</item>
+        <item>千</item>
+        <item>川</item>
+        <item>先</item>
+        <item>早</item>
+        <item>草</item>
+        <item>足</item>
+        <item>村</item>
+        <item>大</item>
+        <item>男</item>
+        <item>竹</item>
+        <item>中</item>
+        <item>虫</item>
+        <item>町</item>
+        <item>天</item>
+        <item>田</item>
+        <item>土</item>
+        <item>二</item>
+        <item>日</item>
+        <item>入</item>
+        <item>年</item>
+        <item>白</item>
+        <item>八</item>
+        <item>百</item>
+        <item>文</item>
+        <item>木</item>
+        <item>本</item>
+        <item>名</item>
+        <item>目</item>
+        <item>立</item>
+        <item>力</item>
+        <item>林</item>
+        <item>六</item>
     </string-array>
+
+    <string-array name="array_grado_2">
+    <item>A</item>
+    <item>B</item>
+    <item>C</item>
+    </string-array>
+
 </resources>
