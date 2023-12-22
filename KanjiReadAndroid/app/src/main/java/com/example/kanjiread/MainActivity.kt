@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.kanjiread.databinding.ActivityMainBinding
-import com.example.kanjiread.KanjiGeneratorGradeOne
+import com.example.kanjiread.fragmentsProgress.placeholder.placeholder.PlaceholderContent
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +25,9 @@ class MainActivity : AppCompatActivity() {
     // Dichiarazione delle variabili come proprietà della classe
     private lateinit var kunReading: String
     private lateinit var onReading: String
-   /**-------------------------------------------------*/
+    var conoscenza: Int = 0
+    private var indiceKanji: Int = 0
+    /**-------------------------------------------------*/
 
    /** Funzione di generazione */
    private fun generateRandomKanji() {
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
        // Utilizzo delle letture Kun e On
        kunReading = randomKanji.kunReading
        onReading = randomKanji.onReading
+       conoscenza = randomKanji.conoscenza
+       indiceKanji = KanjiGeneratorGradeOne().ottieniRandomIndex()
 
        //println("Kanji: ${randomKanji.character}")
        //println("Lettura Kun: ${randomKanji.kunReading}")
@@ -44,6 +47,15 @@ class MainActivity : AppCompatActivity() {
        kanjiView.text = randomKanji.character.toString()
    }
     /**-------------------------------------------------*/
+
+    /** Aggiornamento della percentuale -----------------*/
+    private fun updatePercentageForCurrentKanji(): Int {
+        // Trova l'elemento nella lista con l'ID corrispondente
+        PlaceholderContent.setConoscenza("4")
+        // Aggiorna la percentuale per l'elemento corrente
+        return 1
+    }
+    /**-----------------------------------------------------*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,10 +96,12 @@ class MainActivity : AppCompatActivity() {
             // Esegui azioni basate sul testo inserito
             if (kunInserito.isNotBlank() || onInserito.isNotBlank()) {
                 // Se il testo non è vuoto, mostra un Toast con il testo inserito
-                if (kunInserito == kunReading && onInserito == onReading) {
+                //if (kunInserito == kunReading && onInserito == onReading) {
+                if (kunInserito == "A" && onInserito == "B") {
                     builderOk.setMessage("Testo inserito: $kunInserito e $onInserito sono corretti")
                     builderOk.setPositiveButton("OK,prossimo Kanji") { dialog, _ ->
                         generateRandomKanji()
+                        updatePercentageForCurrentKanji()
                         editTextKun.setText("")
                         editTextOn.setText("")
                         dialog.dismiss()}

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kanjiread.R
+import com.example.kanjiread.fragmentsProgress.placeholder.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of Items.
@@ -38,43 +39,30 @@ class ProgressLIstGradeFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                // Ottieni l'array di stringhe da resources
-                val stringArray = resources.getStringArray(R.array.array_grado_2)
 
                 // Ottieni il riferimento al RecyclerView dal layout
-                //val recyclerView: RecyclerView = view.findViewById(R.id.listRecyclerViewOne)
-
-                // Crea un adapter personalizzato e imposta l'array di stringhe come dati
-                val adapter = MyProgressLIstGradeRecyclerViewAdapter(stringArray.toMutableList())
+                val recyclerView: RecyclerView = view.findViewById(R.id.listRecyclerViewOne)
+                val letterList = createLetterList()
 
                 // Imposta il LinearLayoutManager per il RecyclerView
                 //recyclerView.layoutManager = LinearLayoutManager(context)
 
                 // Imposta l'adapter per il RecyclerView
-                //recyclerView.adapter = adapter
+                recyclerView.adapter = adapter
 
-                //adapter = MyProgressLIstGradeRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                PlaceholderContent.initializeStringArray(letterList)
+
+                // Ora puoi accedere a PlaceholderContent.STRING_ARRAY dall'interno di AltraClasse
+                adapter = MyProgressLIstGradeRecyclerViewAdapter(PlaceholderContent.ITEMS, PlaceholderContent.getStringArray())
             }
         }
-
-
-        // Ottieni l'array di stringhe da resources
-        /*val stringArray = resources.getStringArray(R.array.array_grado_1)
-
-        // Ottieni il riferimento al RecyclerView dal layout
-        val recyclerView: RecyclerView = view.findViewById(R.id.listRecyclerViewOne)
-
-        // Crea un adapter personalizzato e imposta l'array di stringhe come dati
-        val adapter = MyProgressLIstGradeRecyclerViewAdapter(stringArray.toList())
-
-        // Imposta il LinearLayoutManager per il RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // Imposta l'adapter per il RecyclerView
-        recyclerView.adapter = adapter*/
-
         return view
     }
+
+    private fun createLetterList(): Array<String> {
+        return resources.getStringArray(R.array.array_grado_1)
+    }
+
 
     companion object {
 

@@ -27,8 +27,8 @@ class MainActivityProgress : AppCompatActivity() {
 
         // Sostituisci R.id.fragment_container con l'ID del tuo contenitore nel layout dell'activity
         transaction.replace(R.id.listaProgressiKanjiGrado1, progressLIstGradeFragment)
-        transaction.addToBackStack(null) // Aggiungi alla pila per la navigazione all'indietro
-
+        // Se decommento questa  riga non ho il ritorno immediato all'activity precedente
+        // transaction.addToBackStack(null) // Aggiungi alla pila per la navigazione all'indietro
         transaction.commit()
         /** -------------------------------------------------------------- */
     }
