@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     /** Aggiornamento della percentuale -----------------*/
     private fun updatePercentageForCurrentKanji(): Int {
         // Trova l'elemento nella lista con l'ID corrispondente
-        PlaceholderContent.setConoscenza("4")
+        //PlaceholderContent.setConoscenza("4")
         // Aggiorna la percentuale per l'elemento corrente
         return 1
     }
