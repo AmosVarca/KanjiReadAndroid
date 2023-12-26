@@ -1,21 +1,37 @@
 package com.example.kanjiread
 
+import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.kanjiread.dao.ConoscenzaDao
+import com.example.kanjiread.data.Conoscenza
 import com.example.kanjiread.databinding.ActivityMainBinding
+import com.example.kanjiread.db.ConoscenzaDatabase
 import com.example.kanjiread.fragmentsProgress.placeholder.placeholder.PlaceholderContent
+import com.example.prob.ListaConoscenzaUno
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.*
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
+    private val context: Context = this
+
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
 
 
     /** Variabili per la generazione random dei Kanji */
@@ -39,10 +55,6 @@ class MainActivity : AppCompatActivity() {
        conoscenza = randomKanji.conoscenza
        indiceKanji = KanjiGeneratorGradeOne().ottieniRandomIndex()
 
-       //println("Kanji: ${randomKanji.character}")
-       //println("Lettura Kun: ${randomKanji.kunReading}")
-       //println("Lettura On: ${randomKanji.onReading}")
-
        // Mostra la lettera generata nel TextView
        kanjiView.text = randomKanji.character.toString()
    }
@@ -57,8 +69,54 @@ class MainActivity : AppCompatActivity() {
     }
     /**-----------------------------------------------------*/
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        /** ---- USO FILE JSON COME DATABASE --------*/
+        ListaConoscenzaUno.initialize(applicationContext)
+        // Genera la lista con gli ID
+        //ListaConoscenzaUno.generateNumberList()
+        ListaConoscenzaUno.createAndWriteListToFile()
+        // Verifica l'esistenza del file dopo l'inizializzazione
+        val file = File(applicationContext.filesDir, "number_list.json")
+        Log.d("ListaConoscenzaUno", "Il file esiste: ${file.exists()}")
+        val jsonString = file.readText()
+
+        // Deserializza la stringa JSON in una lista di oggetti
+        val gson = Gson()
+        val listType = object : TypeToken<List<ListaConoscenzaUno.NumberItem>>() {}.type
+        val listaJson: List<ListaConoscenzaUno.NumberItem> = gson.fromJson(jsonString, listType)
+
+        // Cerca l'oggetto con l'ID desiderato (nel tuo caso, ID 3)
+        val desiredId = 3
+        val itemWithDesiredId = listaJson.find { it.id == desiredId }
+
+        // Se l'oggetto è stato trovato, stampa il valore associato all'ID
+        if (itemWithDesiredId != null) {
+            var value = itemWithDesiredId.value
+            Log.d("MainActivity", "Valore associato all'ID $desiredId: $value")
+
+            itemWithDesiredId.value = 300 // Sostituisci 'nuovoValore' con il valore desiderato
+            Log.d("MainActivity", "Valore aggiornato per l'ID $desiredId: ${itemWithDesiredId.value}")
+
+            // Serializza la lista aggiornata in una stringa JSON
+            val updatedJsonString = gson.toJson(listaJson)
+
+            // Scrivi la stringa JSON nel file
+            file.writeText(updatedJsonString)
+            value = itemWithDesiredId.value
+            Log.d("MainActivity", "Valore associato all'ID $desiredId: $value")
+            Log.d("MainActivity", "File JSON aggiornato con successo.")
+
+        } else {
+            Log.d("MainActivity", "Nessun oggetto trovato con l'ID $desiredId")
+        }
+        // Stampa la stringa JSON nel log
+        Log.d("ListaConoscenzaUno", "Contenuto del file JSON: $jsonString")
+        /**-----------------------------------------------------------*/
+
+
 
         // Imposta il layout dell'activity
         binding = ActivityMainBinding.inflate(layoutInflater)

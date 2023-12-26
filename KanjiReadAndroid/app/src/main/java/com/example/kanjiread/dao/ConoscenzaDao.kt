@@ -10,7 +10,7 @@ interface ConoscenzaDao {
     @Update
     fun updateConoscenza(conoscenza: Conoscenza): Void
     @Delete
-    fun eliminaConoscenza(conoscenza: Conoscenza): Void
+    fun eliminaConoscenza(conoscenza: Conoscenza):Void
     @Query("SELECT * FROM conoscenza_kanji WHERE id = :idConoscenza")
     fun findConoscenzaById(idConoscenza: Long): Conoscenza?
 }

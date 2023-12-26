@@ -9,19 +9,21 @@ import com.example.kanjiread.data.Conoscenza
 
 @Database(entities = [Conoscenza::class], version = 1)
 abstract class ConoscenzaDatabase : RoomDatabase() {
-    private lateinit var database: ConoscenzaDatabase
 
-    abstract fun conoscenzaDao(): ConoscenzaDao
+    abstract fun getConoscenzaDao(): ConoscenzaDao
 
-    fun getInstance(context: Context): ConoscenzaDatabase {
-        if (database == null){
-            database = Room.databaseBuilder(
-                context,
-                ConoscenzaDatabase::class.java,
-                "database-conoscenza.db"
-            ).build()
+    companion object {
+        @Volatile
+        private var database: ConoscenzaDatabase? = null
 
+        fun getInstance(context: Context): ConoscenzaDatabase {
+            return database ?: synchronized(this) {
+                database ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    ConoscenzaDatabase::class.java,
+                    "database-conoscenza.db"
+                ).build().also { database = it }
+            }
         }
-        return database
     }
 }
